@@ -41,6 +41,7 @@ function MyVideo() {
       <hr></hr>
       <YouTube videoId={videoId} onReady={onReady} onPause={getTimeStamp}/>
       <h1> Current Timestamp: {time} </h1>
+      <CommentSection currentTime={time} key={time}/>
     </div>
   );
 }
@@ -51,7 +52,8 @@ class CommentSection extends Component {
     this.state = {
       data: [],
       loaded: false,
-      placeholder: "Loading"
+      placeholder: "Loading",
+      currentTime: props.currentTime
     };
   }
 
@@ -74,21 +76,27 @@ class CommentSection extends Component {
         });
       });
   }
+  componentWillUnmount(){
+    return;
+  }
 
   render() {
     return (
-      <ul>
-        {this.state.data.map(contact => {
-            if (!contact.isGeneral){
-                return;
-            }
-          return (
-            <li key={contact.id}>
-              {contact.name} - {contact.email} - {contact.message}
-            </li>
-          );
-        })}
-      </ul>
+        <div>
+            <h2> Comments </h2>
+            <ul>
+                {this.state.data.map(contact => {
+                    if (this.state.currentTime >= contact.start_time && this.state.currentTime <= contact.end_time){
+                        return (
+                            <li key={contact.id}>
+                            {contact.name} - {contact.email} - {contact.message}
+                            </li>
+                        );
+                    }
+                    return "";
+                })}
+            </ul>
+        </div>
     );
   }
 }
@@ -99,5 +107,4 @@ const container = document.getElementById("app");
 render(
 <div>
     <MyVideo/>
-    <CommentSection />
 </div>, container);
