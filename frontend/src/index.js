@@ -1,1 +1,2 @@
-import App from "./components/App";
+// Entropoint
+import CommentSection from "./components/App";

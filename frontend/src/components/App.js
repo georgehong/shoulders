@@ -6,7 +6,7 @@ import { render } from "react-dom";
 const videoIdA = 'XxVg_s8xAms';
 
 // Display Video 
-function Example() {
+function MyVideo() {
   const [videoId, setVideoId] = useState(videoIdA);
   const [player, setPlayer] = useState(null);
   const [time, setTime] = useState(0);
@@ -41,20 +41,11 @@ function Example() {
       <hr></hr>
       <YouTube videoId={videoId} onReady={onReady} onPause={getTimeStamp}/>
       <h1> Current Timestamp: {time} </h1>
-      <button type="button" onClick={onPlayVideo} disabled={!player}>
-        Play
-      </button>
-      <button type="button" onClick={onPauseVideo} disabled={!player}>
-        Pause
-      </button>
-      <div visibility={dispComm}>
-        <h3 >(Pause to show comment section)</h3>
-      </div>
     </div>
   );
 }
 
-class App extends Component {
+class CommentSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,11 +93,11 @@ class App extends Component {
   }
 }
 
-export default App;
+export default CommentSection;
 
 const container = document.getElementById("app");
 render(
 <div>
-    <Example/>
-    <App />
+    <MyVideo/>
+    <CommentSection />
 </div>, container);
