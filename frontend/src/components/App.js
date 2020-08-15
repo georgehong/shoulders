@@ -40,7 +40,7 @@ function MyVideo() {
       <h1> Sample Lecture Page</h1>
       <hr></hr>
       <YouTube videoId={videoId} onReady={onReady} onPause={getTimeStamp}/>
-      <h1> Current Timestamp: {time} </h1>
+      {/* <h1> Current Timestamp: {time} </h1> */}
       <CommentSection currentTime={time} key={time}/>
     </div>
   );
@@ -84,21 +84,32 @@ class CommentSection extends Component {
     return (
         <div>
             <h2> Comments </h2>
-            <ul>
                 {this.state.data.map(contact => {
-                    if (this.state.currentTime >= contact.start_time && this.state.currentTime <= contact.end_time){
+                    if (contact.isGeneral && this.state.currentTime >= contact.start_time && this.state.currentTime <= contact.end_time){
                         return (
-                            <li key={contact.id}>
-                            {contact.name} - {contact.email} - {contact.message}
-                            </li>
+                            <p>{contact.name} - {contact.email} - {contact.message}</p>
                         );
                     }
                     return "";
                 })}
-            </ul>
+            <h2> Questions </h2>
+                {this.state.data.map(contact => {
+                    if (contact.isQuestion && this.state.currentTime >= contact.start_time && this.state.currentTime <= contact.end_time){
+                        return (
+                            <p>{contact.name} - {contact.email} - {contact.message}</p>
+                        );
+                    }
+                    return "";
+                })}
         </div>
     );
   }
+}
+
+class CommentForm extends Component{
+    
+
+
 }
 
 export default CommentSection;
