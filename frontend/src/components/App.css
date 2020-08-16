@@ -1,12 +1,22 @@
+/* First two lines of text on the page */
 .main_title {
-    text-align: center
+    text-align: center;
 }
 .main_subtitle {
-    text-align: center
+    text-align: center;
+}
+
+/* General style for the page */
+.all{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri;
+}
+h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 400;
 }
 
 .container {
     text-align:center;
+    background-image:url('abstract1.png');
   } 
   
   .one {
@@ -19,7 +29,6 @@
       padding: 10px;
       border-radius: 5px;
       width: 50%;
-      background:lightslategray;
       margin: auto;
   }
 

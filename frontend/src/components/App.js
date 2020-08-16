@@ -197,7 +197,7 @@ export default CommentSection;
 
 const container = document.getElementById("app");
 render(
-<div>
+<div class='all'>
     <h1 class='main_title'> Sample Page</h1>
     <h2 class='main_subtitle'> Alternative Comment Section Concept</h2>
     <hr></hr>
