@@ -89,7 +89,10 @@ class CommentSection extends Component {
                 {this.state.data.map(contact => {
                     if (contact.isGeneral && this.state.currentTime >= contact.start_time && this.state.currentTime <= contact.end_time){
                         return (
-                            <p>{contact.name} - {contact.email} - {contact.message}</p>
+                            <div class='post'>
+                                <strong>{contact.name}</strong>
+                                <p>{contact.message}</p>
+                            </div>
                         );
                     }
                     return "";
@@ -100,7 +103,10 @@ class CommentSection extends Component {
                 {this.state.data.map(contact => {
                     if (contact.isQuestion && this.state.currentTime >= contact.start_time && this.state.currentTime <= contact.end_time){
                         return (
-                            <p>{contact.name} - {contact.email} - {contact.message}</p>
+                            <div class='post'>
+                                <strong>{contact.name}</strong>
+                                <p>{contact.message}</p>
+                            </div>
                         );
                     }
                     return "";
@@ -164,24 +170,21 @@ class CommentForm extends React.Component {
         <form className="two" onSubmit={this.handleSubmit}>
           <label>
               <div>
-                Name:
-                <input type="text" name='name' value={this.state.name} onChange={this.handleChange} />
-                Email:
-                <input type="email" name='email' value={this.state.email} onChange={this.handleChange} />
+                <input placeholder="Name" type="text" name='name' value={this.state.name} onChange={this.handleChange} />
+                <input placeholder="Email" type="email" name='email' value={this.state.email} onChange={this.handleChange} />
               </div>
-            Comment?
-            <input type="checkbox" name='isGeneral' checked={this.state.isGeneral} onChange={this.handleChange} />
-            Question?
-            <input type="checkbox" name='isQuestion' checked={this.state.isQuestion} onChange={this.handleChange} />
+              <div>
+                <input type="checkbox" name='isGeneral' checked={this.state.isGeneral} onChange={this.handleChange} /> Comment 
+              </div>
+              <div>
+                <input type="checkbox" name='isQuestion' checked={this.state.isQuestion} onChange={this.handleChange} /> Question
+              </div>
             <div>
-                Comment:
-                <input class="main_input" type="text" name='message' value={this.state.message} onChange={this.handleChange} />
+                <textarea placeholder="Write your comment or ask a question here!" rows="3" cols="60" class="main_input" type="text" name='message' value={this.state.message} onChange={this.handleChange} />
             </div>
             <div>
-                Start Time:
-                <input type="number" name='start_time' value={this.state.start_time} onChange={this.handleChange} />
-                End Time:
-                <input type="number" name='end_time' value={this.state.end_time} onChange={this.handleChange} />
+                <input placeholder="Start Time" type="number" name='start_time' value={this.state.start_time} onChange={this.handleChange} />
+                <input placeholder="End Time" type="number" name='end_time' value={this.state.end_time} onChange={this.handleChange} />
             </div>
           </label>
           <input type="submit" value="Submit" />
