@@ -3,6 +3,8 @@ import {useState} from "react";
 import YouTube from "react-youtube";
 
 import { render } from "react-dom";
+import './App.css';
+
 const videoIdA = 'XxVg_s8xAms';
 
 // Display Video 
@@ -36,11 +38,10 @@ function MyVideo() {
   };
 
   return (
-    <div>
-      <h1> Sample Lecture Page</h1>
-      <hr></hr>
-      <YouTube videoId={videoId} onReady={onReady} onPause={getTimeStamp}/>
+    <div class='container'>
+      <YouTube className='one' videoId={videoId} onReady={onReady} onPause={getTimeStamp}/>
       {/* <h1> Current Timestamp: {time} </h1> */}
+      <CommentForm/>
       <CommentSection currentTime={time} key={time}/>
     </div>
   );
@@ -82,7 +83,8 @@ class CommentSection extends Component {
 
   render() {
     return (
-        <div>
+        <div class="container2">
+            <div class="comment_box">
             <h2> Comments </h2>
                 {this.state.data.map(contact => {
                     if (contact.isGeneral && this.state.currentTime >= contact.start_time && this.state.currentTime <= contact.end_time){
@@ -92,6 +94,8 @@ class CommentSection extends Component {
                     }
                     return "";
                 })}
+            </div>
+            <div class="question_box">
             <h2> Questions </h2>
                 {this.state.data.map(contact => {
                     if (contact.isQuestion && this.state.currentTime >= contact.start_time && this.state.currentTime <= contact.end_time){
@@ -101,6 +105,7 @@ class CommentSection extends Component {
                     }
                     return "";
                 })}
+            </div>
         </div>
     );
   }
@@ -156,7 +161,7 @@ class CommentForm extends React.Component {
   
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
+        <form className="two" onSubmit={this.handleSubmit}>
           <label>
               <div>
                 Name:
@@ -170,7 +175,9 @@ class CommentForm extends React.Component {
             <input type="checkbox" name='isQuestion' checked={this.state.isQuestion} onChange={this.handleChange} />
             <div>
                 Comment:
-                <input type="text" name='message' value={this.state.message} onChange={this.handleChange} />
+                <input class="main_input" type="text" name='message' value={this.state.message} onChange={this.handleChange} />
+            </div>
+            <div>
                 Start Time:
                 <input type="number" name='start_time' value={this.state.start_time} onChange={this.handleChange} />
                 End Time:
@@ -188,6 +195,11 @@ export default CommentSection;
 const container = document.getElementById("app");
 render(
 <div>
-    <MyVideo/>
-    <CommentForm/>
+    <h1 class='main_title'> Sample Page</h1>
+    <h2 class='main_subtitle'> Alternative Comment Section Concept</h2>
+    <hr></hr>
+    <section>
+        <MyVideo/>
+        {/* <CommentForm/> */}
+    </section>
 </div>, container);

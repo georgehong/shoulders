@@ -1,0 +1,43 @@
+.main_title {
+    text-align: center
+}
+.main_subtitle {
+    text-align: center
+}
+
+.container {
+    text-align:center;
+  } 
+  
+  .one {
+      margin: auto;
+  }
+  
+  .two {
+      border-radius: 5px;
+      width: 50%;
+      background: lightgray;
+      margin: auto;
+  }
+
+  .main_input{
+      height: 100px;
+  }
+  .container2 {
+    width: 80%;
+    height: 200px;
+    margin: auto;
+    padding: 10px;
+  }
+  
+  .comment_box {
+    width: 49%;
+    height: 200px;
+    float: left;
+  }
+  
+  .question_box {
+    width: 49%;
+    height: 200px;
+    float: right;
+  }
