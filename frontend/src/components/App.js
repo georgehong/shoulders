@@ -106,11 +106,82 @@ class CommentSection extends Component {
   }
 }
 
-class CommentForm extends Component{
-    
+class CommentForm extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+          name: '',
+          email: '',
+          start_time: '',
+          end_time:'',
+          message: '',
+          isGeneral: false,
+          isQuestion: false,
+        };
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+  
+    handleChange(event) {
+        let nam = event.target.name;
+        //let val = event.target.value;
+        let val = (event.target.name === 'isQuestion' || event.target.name === 'isGeneral') ? event.target.checked : event.target.value;
+        this.setState({[nam]: val});
+    }
+  
+    handleSubmit(event) {
+    //   alert(this.state.name + " " + this.state.email);
+        var formdata = new FormData();
+        formdata.append("name", this.state.name);
+        formdata.append("email", this.state.email);
+        formdata.append("start_time", this.state.start_time);
+        formdata.append("end_time", this.state.end_time);
+        formdata.append("message", this.state.message);
+        formdata.append("start_time", this.state.start_time);
+        formdata.append("isGeneral", this.state.isGeneral);
+        formdata.append("isQuestion", this.state.isQuestion);
 
+        var requestOptions = {
+            method: 'POST',
+            body: formdata,
+            redirect: 'follow'
+        };
 
-}
+        fetch("http://127.0.0.1:8000/api/comments/", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+      event.preventDefault();
+    }
+  
+    render() {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <label>
+              <div>
+                Name:
+                <input type="text" name='name' value={this.state.name} onChange={this.handleChange} />
+                Email:
+                <input type="email" name='email' value={this.state.email} onChange={this.handleChange} />
+              </div>
+            Comment?
+            <input type="checkbox" name='isGeneral' checked={this.state.isGeneral} onChange={this.handleChange} />
+            Question?
+            <input type="checkbox" name='isQuestion' checked={this.state.isQuestion} onChange={this.handleChange} />
+            <div>
+                Comment:
+                <input type="text" name='message' value={this.state.message} onChange={this.handleChange} />
+                Start Time:
+                <input type="number" name='start_time' value={this.state.start_time} onChange={this.handleChange} />
+                End Time:
+                <input type="number" name='end_time' value={this.state.end_time} onChange={this.handleChange} />
+            </div>
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      );
+    }
+  }
 
 export default CommentSection;
 
@@ -118,4 +189,5 @@ const container = document.getElementById("app");
 render(
 <div>
     <MyVideo/>
+    <CommentForm/>
 </div>, container);
